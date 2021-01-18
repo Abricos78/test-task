@@ -5,18 +5,32 @@
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    align-content: center; 
+    justify-content: center; 
+    overflow: auto;   
     background-color: rgba(145, 145, 145, 0.6);
 }
 
 .form {
     background-color: white;
     box-shadow: 0px 0px 10px 1px gray;
-    height: 300px;
-    width: 50%;
+    padding: 30px;
+    padding-bottom: 10px;
+    border-radius: 20px;
+    max-width: 800px;
     z-index: 11;
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    margin: auto;
+}
+
+.buttons {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    flex-direction: row;
+    /* max-width: 150px; */
+    /* margin-left: 59%; */
 }

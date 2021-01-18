@@ -1,35 +1,123 @@
-import { Modal } from 'antd';
+import { Form, Input, Select, Button} from 'antd';
 import React, { useState } from 'react'
 import style from './Form.module.css'
 
-class Form extends React.Component  {
+const { Option } = Select
 
-    state = {
-        visible: this.props.visible.showForm,
-        name: this.props.visible.name
-    }
+const ModalForm = ({visibl, changeShowForm, name}) => {
+    const [visible, setVisible] = useState(visibl)
+    const [form] = Form.useForm()
 
-    componentDidUpdate = (prevProps, prevState) => {
-        if (this.props.visible.showForm !== prevProps.visible.showForm) {
-            this.setState({
-                visible: false
-            })
-        }
-    }
-
-    render() {
-        const { name, visible } = this.state
-        const { changeShowForm } = this.props
+    const onFinish = (value) => {
         debugger
+    }
+
+    const onCancel = () => {
+        setVisible(false)
+        changeShowForm(false)
+    }
+
+    const layout = {
+        labelCol: {
+          span: 8,
+        },
+        wrapperCol: {
+          span: 16,
+        },
+    };
+
+      const validateMessages = {
+        required: '${label} is required!',
+        types: {
+          email: '${label} is not a valid email!',
+          number: '${label} is not a valid number!',
+        }
+      };
+
+      const prefixSelector = (
+        <Form.Item name="prefix" noStyle>
+          <Select
+            style={{
+              width: 70
+            }}
+            size = {'small'}
+          >
+            <Option value="7">+7</Option>
+          </Select>
+        </Form.Item>
+      );
+        
         return (
-            <div>
-                <h1>{name}</h1>
-                <Modal title='Add to basket' visible={visible} onCancel={changeShowForm} onOk={changeShowForm} >
-                </Modal>
+            <div className={style.modal}>
+                <div className={style.form}>
+                <Form form={form} {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}
+                        initialValues={{
+                            product: name,
+                            prefix: '+7',
+                        }}
+
+                    >
+                        <Form.Item
+                            name={['user', 'name']}
+                            label="Имя"
+                            rules={[
+                                {
+                                    required: true,
+                                },
+                            ]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            name="phone"
+                            label="Phone Number"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your phone number!',
+                                },
+                            ]}
+                        >
+                            <Input
+                                addonBefore={prefixSelector}
+                                style={{
+                                    width: '100%',
+                                }}
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            name={['user', 'email']}
+                            label="Email"
+                            rules={[
+                                {
+                                    type: 'email',
+                                    required: true
+                                },
+                            ]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name='product' label="Название товара">
+                            <Input defaultValue={name} />
+                        </Form.Item>
+                        <div className={style.buttons}>
+                            <Form.Item >
+                                <Button type="primary" onClick={onCancel}>
+                                    Cancel
+                                </Button>
+                            </Form.Item>
+                            <Form.Item >
+                                <Button style={{marginLeft: '10px'}} type="primary" htmlType="submit">
+                                    Ok
+                                </Button>
+                            </Form.Item>
+                        </div>
+                    </Form>
+                </div>
+
             </div>
         )
-    }
-
 }
 
-export default Form
+
+export default ModalForm

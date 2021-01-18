@@ -5,7 +5,7 @@ import Product from './Product/Product'
 import style from  './Products.module.css'
 
 function Products () {
-    const [products, setProducts] = useState(getProducts())
+    const [products] = useState(getProducts())
     const [showForm, setShowForm] = useState(false)
     const [name, setName] = useState('')
 

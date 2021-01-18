@@ -10,6 +10,8 @@ const ModalForm = ({visibl, changeShowForm, name}) => {
 
     const onFinish = (value) => {
         debugger
+        setVisible(false)
+        changeShowForm(false)
     }
 
     const onCancel = () => {
@@ -50,12 +52,11 @@ const ModalForm = ({visibl, changeShowForm, name}) => {
         return (
             <div className={style.modal}>
                 <div className={style.form}>
-                <Form form={form} {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}
+                    <Form form={form} {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}
                         initialValues={{
                             product: name,
                             prefix: '+7',
                         }}
-
                     >
                         <Form.Item
                             name={['user', 'name']}
@@ -69,7 +70,7 @@ const ModalForm = ({visibl, changeShowForm, name}) => {
                             <Input />
                         </Form.Item>
                         <Form.Item
-                            name="phone"
+                            name={['user', 'phone']}
                             label="Phone Number"
                             rules={[
                                 {
@@ -98,7 +99,7 @@ const ModalForm = ({visibl, changeShowForm, name}) => {
                             <Input />
                         </Form.Item>
                         <Form.Item name='product' label="Название товара">
-                            <Input defaultValue={name} />
+                            <Input />
                         </Form.Item>
                         <div className={style.buttons}>
                             <Form.Item >
@@ -114,7 +115,6 @@ const ModalForm = ({visibl, changeShowForm, name}) => {
                         </div>
                     </Form>
                 </div>
-
             </div>
         )
 }
